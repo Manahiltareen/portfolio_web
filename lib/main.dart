@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:portfolio_web/View/home/presentation/home_screen.dart';
+import 'package:portfolio_web/View/main_web_page/main_web_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MainWebPage(),
     );
   }
 }
