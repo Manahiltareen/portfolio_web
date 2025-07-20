@@ -1,58 +1,6 @@
-// import 'dart:math';
-// import 'package:flutter/material.dart';
-// import 'package:portfolio_web/core/theme/app_colors.dart';
-//
-// class CircularPathPainter extends CustomPainter {
-//   final double diameter;
-//   final double animationValue; // New parameter to control drawing progress
-//
-//   CircularPathPainter({required this.diameter, required this.animationValue});
-//
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = AppColors.accentOrange
-//       ..style = PaintingStyle.stroke
-//       ..strokeWidth = 2.0;
-//
-//     final center = Offset(size.width / 2, size.height / 2);
-//     final radius = diameter / 2 + 0;
-//
-//     double startAngle = -pi * 0.75;
-//     double sweepAngle = pi * 1.5;
-//
-//     // Draw the main arc based on animationValue
-//     canvas.drawArc(
-//       Rect.fromCircle(center: center, radius: radius),
-//       startAngle, // Start angle is fixed
-//       sweepAngle * animationValue, // Sweep angle progresses with animation
-//       false,
-//       paint,
-//     );
-//
-//     // Draw dots along the path based on animationValue
-//     final dotPaint = Paint()..color = AppColors.accentOrange;
-//     final numberOfDots = 6;
-//     for (int i = 0; i < numberOfDots; i++) {
-//       // Only draw the dot if its position is "reached" by the current animation progress
-//       if (i / (numberOfDots - 1) <= animationValue) {
-//         double angle = startAngle + (sweepAngle / (numberOfDots - 1)) * i;
-//         final dotX = center.dx + radius * cos(angle);
-//         final dotY = center.dy + radius * sin(angle);
-//         canvas.drawCircle(Offset(dotX, dotY), 4, dotPaint);
-//       }
-//     }
-//   }
-//
-//   @override
-//   bool shouldRepaint(covariant CircularPathPainter oldDelegate) {
-//     // Repaint if diameter or animationValue changes
-//     return oldDelegate.diameter != diameter || oldDelegate.animationValue != animationValue;
-//   }
-// }
-import 'dart:math'; // Make sure you import dart:math
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/core/theme/app_colors.dart'; // Make sure this path is correct
+import 'package:portfolio_web/core/theme/app_colors.dart';
 
 class CircularPathPainter extends CustomPainter {
   final double diameter;
@@ -94,3 +42,4 @@ class CircularPathPainter extends CustomPainter {
         oldPainter.pathRadius != pathRadius; // <--- INCLUDE pathRadius HERE
   }
 }
+

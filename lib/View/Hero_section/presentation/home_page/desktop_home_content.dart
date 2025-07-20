@@ -9,7 +9,6 @@ import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/comm
 
 import 'package:portfolio_web/core/constants/hero_data.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart';
-import 'package:portfolio_web/core/manager/Scroll_manager.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 
 
@@ -21,13 +20,13 @@ class HeroDesktopLayout extends StatelessWidget {
   final double titleFontSize;
   final double projectTextFontSize;
   final double paragraphFontSize;
-  final ScrollManager scrollManager;
+
 
   const HeroDesktopLayout({
     super.key,
     required this.screenWidth,
     required this.screenHeight,
-    required this.scrollManager,
+  
     required this.hiThereFontSize,
     required this.nameFontSize,
     required this.titleFontSize,
@@ -236,10 +235,7 @@ class HeroDesktopLayout extends StatelessWidget {
                         ],
                       ),
                     ),
-                    AnimatedCircularMenu(
-                      diameter: 200,
-                      scrollManager: scrollManager, // ⭐ Pass the scrollManager
-                    ), // Using common widget
+                    AnimatedCircularMenu(diameter: screenWidth * rightColumnWidthRatio * 0.8)
                   ],
                 ),
               ),

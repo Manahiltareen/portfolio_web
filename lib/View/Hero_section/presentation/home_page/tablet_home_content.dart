@@ -5,7 +5,7 @@ import 'package:portfolio_web/Shared/widgets/custom_button.dart';
 import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/common_hero_widgets.dart';
 
 import 'package:portfolio_web/core/constants/hero_data.dart';
-import 'package:portfolio_web/core/manager/Scroll_manager.dart';
+
 import 'package:portfolio_web/core/theme/app_colors.dart';
 // Import common hero widgets
 
@@ -17,7 +17,7 @@ class HeroTabletLayout extends StatelessWidget {
   final double titleFontSize;
   final double projectTextFontSize;
   final double paragraphFontSize;
-  final ScrollManager scrollManager;
+
   const HeroTabletLayout({
     super.key,
     required this.screenWidth,
@@ -26,7 +26,7 @@ class HeroTabletLayout extends StatelessWidget {
     required this.nameFontSize,
     required this.titleFontSize,
     required this.projectTextFontSize,
-    required this.paragraphFontSize, required this.scrollManager,
+    required this.paragraphFontSize,
   });
 
   @override
@@ -59,10 +59,10 @@ class HeroTabletLayout extends StatelessWidget {
                   ],
                 ),
               ),
-              AnimatedCircularMenu(
-                diameter: 200,
-                scrollManager: scrollManager, // ⭐ Pass the scrollManager
-              ),
+              // AnimatedCircularMenu(
+              //   diameter: 200,
+              //   scrollManager: scrollManager, // ⭐ Pass the scrollManager
+              // ),
               // Using common widget
             ],
           ),

@@ -5,10 +5,6 @@ import 'package:portfolio_web/core/notifiers/active_section_notifier.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-
-
-
-
 class ServiceHoverCard extends StatefulWidget {
   final IconData icon;
   final String title;
@@ -42,30 +38,37 @@ class _ServiceHoverCardState extends State<ServiceHoverCard> {
         scale: _isHovered ? 1.05 : 1.0, // Existing scale animation
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        child: AnimatedContainer( // ⭐ Use AnimatedContainer to animate color and box shadow
-          duration: const Duration(milliseconds: 200), // Match scale animation duration
+        child: AnimatedContainer(
+          // ⭐ Use AnimatedContainer to animate color and box shadow
+          duration: const Duration(
+              milliseconds: 200), // Match scale animation duration
           decoration: BoxDecoration(
             color: AppColors.backgroundSecondary,
             borderRadius: BorderRadius.circular(5),
             boxShadow: _isHovered
                 ? [
-              BoxShadow(
-                color: AppColors.accentOrange.withOpacity(0.5), // ⭐ Stronger glow on hover
-                spreadRadius: 8, // ⭐ Increased spread radius for a more prominent glow
-                blurRadius: 15,  // ⭐ Increased blur radius
-                offset: const Offset(0, 8), // ⭐ Offset for shadow
-              ),
-            ]
+                    BoxShadow(
+                      color: AppColors.accentOrange
+                          .withOpacity(0.5), // ⭐ Stronger glow on hover
+                      spreadRadius:
+                          8, // ⭐ Increased spread radius for a more prominent glow
+                      blurRadius: 15, // ⭐ Increased blur radius
+                      offset: const Offset(0, 8), // ⭐ Offset for shadow
+                    ),
+                  ]
                 : [
-              BoxShadow( // Default shadow, making it subtle or transparent when not hovered
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 2, // Smaller default spread
-                blurRadius: 5,  // Smaller default blur
-                offset: const Offset(0, 3), // Subtle default offset
-              ),
-            ],
+                    BoxShadow(
+                      // Default shadow, making it subtle or transparent when not hovered
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2, // Smaller default spread
+                      blurRadius: 5, // Smaller default blur
+                      offset: const Offset(0, 3), // Subtle default offset
+                    ),
+                  ],
             border: _isHovered
-                ? Border.all(color: AppColors.accentOrange, width: 2) // ⭐ Border on hover
+                ? Border.all(
+                    color: AppColors.accentOrange,
+                    width: 2) // ⭐ Border on hover
                 : null, // No border when not hovered
           ),
           child: Column(
@@ -98,7 +101,6 @@ class _ServiceHoverCardState extends State<ServiceHoverCard> {
     );
   }
 }
-
 
 class AnimatedStatisticItem extends StatefulWidget {
   final String value;
@@ -140,8 +142,8 @@ class _AnimatedStatisticItemState extends State<AnimatedStatisticItem>
         curve: Curves.easeOutCubic,
       ),
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
   }
 
   void _parseValueString(String valueString) {
@@ -187,7 +189,9 @@ class _AnimatedStatisticItemState extends State<AnimatedStatisticItem>
           children: [
             Text(
               // If animation hasn't started, show 0 or default. Otherwise, show animated value.
-              _animationStarted ? "${_animation.value.toInt()}${_suffix}" : "0${_suffix}",
+              _animationStarted
+                  ? "${_animation.value.toInt()}${_suffix}"
+                  : "0${_suffix}",
               style: GoogleFonts.montserrat(
                 fontSize: 30,
                 color: Colors.grey,
@@ -212,8 +216,6 @@ class _AnimatedStatisticItemState extends State<AnimatedStatisticItem>
 // --- Existing _buildVerticalSideNavbar method (remains the same) ---
 // Import the notifier
 
-
-
 // Assume this notifier exists, as in previous conversations
 // It helps update the active state of the navbar items.
 // class ActiveSectionNotifier extends ValueNotifier<int> {
@@ -227,6 +229,8 @@ class _AnimatedStatisticItemState extends State<AnimatedStatisticItem>
 // }
 
 // Ensure correct import for ActiveSectionNotifier
+
+ // Ensure correct import for ActiveSectionNotifier
 
 Widget buildVerticalSideNavbar(
     BuildContext context, {
@@ -298,4 +302,4 @@ Widget buildVerticalSideNavbar(
       );
     },
   );
-}
+}//
