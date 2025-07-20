@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/View/Experience_Section/presentation/Experience_page/ExperienceSection.dart';
 import 'package:portfolio_web/View/Project_Section/presentation/projects_pages/Desktop_project_content.dart';
 import 'package:portfolio_web/View/about/Presentation/About_pages/desktop_about_content.dart';
 import 'package:portfolio_web/View/home/presentation/home_screen.dart';
@@ -46,6 +47,7 @@ class _MainWebPageState extends State<MainWebPage> {
             NewHeroSectionContent(),
 
             DesktopAboutContent(activeSectionNotifier: _activeSectionNotifier),
+            ExperienceSection(),
             ProjectSection(),
 
           ],

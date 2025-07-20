@@ -183,7 +183,7 @@ class HeroDesktopLayout extends StatelessWidget {
                     // Circular Image of Manahil
                     Container(
                       width: screenWidth * rightColumnWidthRatio * 0.7,
-                      height: screenWidth * rightColumnWidthRatio * 0.6,
+                      height: screenWidth * rightColumnWidthRatio * 0.55,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
