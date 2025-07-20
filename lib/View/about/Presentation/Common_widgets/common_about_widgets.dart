@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_web/View/main_web_page/main_web_page.dart';
 import 'package:portfolio_web/core/notifiers/active_section_notifier.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -211,34 +212,60 @@ class _AnimatedStatisticItemState extends State<AnimatedStatisticItem>
 // --- Existing _buildVerticalSideNavbar method (remains the same) ---
 // Import the notifier
 
+
+
+// Assume this notifier exists, as in previous conversations
+// It helps update the active state of the navbar items.
+// class ActiveSectionNotifier extends ValueNotifier<int> {
+//   ActiveSectionNotifier() : super(0); // Initial active section is 0 (Home)
+//
+//   void setActiveSection(int index) {
+//     if (value != index) {
+//       value = index;
+//     }
+//   }
+// }
+
+// Ensure correct import for ActiveSectionNotifier
+
 Widget buildVerticalSideNavbar(
     BuildContext context, {
-      required ActiveSectionNotifier activeSectionNotifier, // Accept the notifier
+      required ActiveSectionNotifier activeSectionNotifier,
+      required ScrollController scrollController,
+      required List<double> sectionOffsets, // ⭐ New parameter
     }) {
+
   final List<Map<String, dynamic>> sections = [
     {'icon': Icons.home, 'label': 'Home'},
     {'icon': Icons.person, 'label': 'About'},
-    {'icon': Icons.work, 'label': 'Services'},
+    {'icon': Icons.work, 'label': 'Services'}, // Assuming ExperienceSection maps to Services
     {'icon': Icons.folder, 'label': 'Projects'},
     {'icon': Icons.mail, 'label': 'Contact'},
   ];
 
   return ValueListenableBuilder<int>(
-    valueListenable: activeSectionNotifier, // Listen to changes in activeSectionNotifier
+    valueListenable: activeSectionNotifier,
     builder: (context, activeIndex, child) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: sections.asMap().entries.map((entry) {
           int index = entry.key;
           Map<String, dynamic> data = entry.value;
-          bool isActive = index == activeIndex; // Determine active based on notifier's value
+          bool isActive = index == activeIndex;
 
           return GestureDetector(
             onTap: () {
-              // When tapped, update the notifier's value
-              activeSectionNotifier.setActiveSection(index);
+              if (index < sectionOffsets.length) {
+                scrollController.animateTo(
+                  sectionOffsets[index], // ⭐ Use the passed offsets
+                  duration: const Duration(milliseconds: 700),
+                  curve: Curves.easeInOut,
+                );
+                // No need to setActiveSection here, as _onScroll will handle it based on actual scroll position
+                // which prevents conflicts if user manually scrolls.
+                // activeSectionNotifier.setActiveSection(index); // Removed this line
+              }
               print('Tapped section: ${data['label']} (Index: $index)');
-              // No navigation logic here as per your request
             },
             child: Column(
               children: [

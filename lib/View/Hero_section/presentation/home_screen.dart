@@ -1,14 +1,25 @@
 // lib/sections/new_hero_section_content.dart
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/View/Hero_section/presentation/home_page/desktop_home_content.dart';
+import 'package:portfolio_web/View/Hero_section/presentation/home_page/mobile_home_content.dart';
+import 'package:portfolio_web/View/Hero_section/presentation/home_page/tablet_home_content.dart';
 
-import 'package:portfolio_web/View/home/presentation/home_page/desktop_home_content.dart';
-import 'package:portfolio_web/View/home/presentation/home_page/mobile_home_content.dart';
-import 'package:portfolio_web/View/home/presentation/home_page/tablet_home_content.dart';
+
 import 'package:portfolio_web/core/helpers/responsive_helper.dart';
+import 'package:portfolio_web/core/manager/Scroll_manager.dart';
+import 'package:portfolio_web/core/notifiers/active_section_notifier.dart';
 
-class NewHeroSectionContent extends StatelessWidget {
-  const NewHeroSectionContent({super.key});
+class NewHeroSectionContent extends StatefulWidget {
+  final ActiveSectionNotifier activeSectionNotifier;
+  final ScrollManager scrollManager;
+  const NewHeroSectionContent({super.key, required this.activeSectionNotifier,
+  required this.scrollManager});
 
+  @override
+  State<NewHeroSectionContent> createState() => _NewHeroSectionContentState();
+}
+
+class _NewHeroSectionContentState extends State<NewHeroSectionContent> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -41,6 +52,7 @@ class NewHeroSectionContent extends StatelessWidget {
 
     return ResponsiveLayoutBuilder(
       desktop: HeroDesktopLayout(
+        scrollManager: widget.scrollManager,
         screenWidth: screenWidth,
         screenHeight: screenHeight,
         hiThereFontSize: hiThereFontSize,
@@ -50,6 +62,7 @@ class NewHeroSectionContent extends StatelessWidget {
         paragraphFontSize: paragraphFontSize,
       ),
       tablet: HeroTabletLayout(
+        scrollManager: widget.scrollManager,
         screenWidth: screenWidth,
         screenHeight: screenHeight,
         hiThereFontSize: hiThereFontSize,
@@ -59,6 +72,7 @@ class NewHeroSectionContent extends StatelessWidget {
         paragraphFontSize: paragraphFontSize,
       ),
       mobile: HeroMobileLayout(
+        scrollManager: widget.scrollManager,
         screenWidth: screenWidth,
         screenHeight: screenHeight,
         hiThereFontSize: hiThereFontSize,

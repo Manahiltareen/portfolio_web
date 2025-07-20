@@ -11,71 +11,64 @@ class ExperienceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDesktop = Responsive.isDesktop(context);
-    // No need for screenHeight here if we want content to dictate height, up to max
-    // double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
       width: double.infinity,
-      // ⭐ Removed fixed height constraint. Let children define height.
-      // constraints: BoxConstraints(maxHeight: screenHeight), // Option if you want to cap it
-      padding: EdgeInsets.symmetric(
-        vertical: isDesktop ? 50 : 30,
-        horizontal: isDesktop ? MediaQuery.of(context).size.width * 0.1 : 20,
-      ),
       color: AppColors.backgroundPrimary,
+      padding: EdgeInsets.symmetric(
+        vertical: isDesktop ? 70 : 40,
+        horizontal: isDesktop ? MediaQuery.of(context).size.width * 0.15 : 20,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        // ⭐ Important: Column takes only necessary height for its children
-        mainAxisSize: MainAxisSize.min, // This makes the column shrink-wrap its content
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // Section Title
           Text(
             'My Journey',
             style: GoogleFonts.poppins(
-              fontSize: isDesktop ? 36 : 26,
+              fontSize: isDesktop ? 35 : 26,
               fontWeight: FontWeight.bold,
               color: AppColors.textPrimary,
             ),
           ),
-          // Reduced margin for the underline
           Container(
-            width: isDesktop ? 120 : 80,
+            width: isDesktop ? 100 : 70,
             height: 3,
             color: AppColors.accentOrange,
-            margin: const EdgeInsets.only(top: 4, bottom: 20), // Reduced bottom margin
+            margin: const EdgeInsets.only(top: 4, bottom: 40),
           ),
-          // Experience Timeline - ⭐ Crucial: No Expanded and No SingleChildScrollView here
-          // This allows the column to grow to fit all timeline tiles
           Column(
             children: [
+              // Ensure these are in the correct order for your timeline
               ExperienceTimelineTile(
-                duration: 'Feb 2024 - May 2024',
+                duration: 'Feb 2024 - May 2024', // First item in image
                 title: 'Flutter App Dev Intern',
                 company: 'Cody Tech Software House',
                 description: 'Gained practical experience building Flutter mobile apps, working on client projects. Strengthened UI/UX, Firebase integration, & debugging skills.',
                 certificateImagePath: 'assets/certificates/codytech_certificate.png',
+                // Keep certificateLink null if you only use imagePath for now
               ),
               ExperienceTimelineTile(
-                duration: 'July 2025 - Nov 2025',
+                duration: 'July 2025 - Nov 2025', // Second item in image (Ongoing)
                 title: 'Flutter App Dev Intern (Ongoing)',
                 company: 'Apidcore',
                 description: 'Currently enhancing skills in Flutter app development through a real-world project internship.',
                 certificateImagePath: 'assets/certificates/apidcore_offer_letter.png',
               ),
               ExperienceTimelineTile(
-                duration: 'Sep 2023 - Present',
-                title: 'Computer Subject Mentor (Online)',
+                duration: 'Sept 2023 - Present', // Third item in image
+                title: 'Comp. Subject Mentor (Online)',
                 company: 'Self-employed',
                 description: 'Taught Flutter frontend & Firebase online to students, helping them grasp software dev concepts.',
+                // No certificate for this one based on image
               ),
             ],
           ),
-          // Download Resume Button
           Padding(
-            padding: const EdgeInsets.only(top: 30.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: OutlinedButton.icon(
               onPressed: () async {
-                const String resumeUrl = 'assets/ManahilTareen_CV.docx';
+                const String resumeUrl = 'assets/ManahilTareen_CV.docx'; // ⭐ Confirm this path is correct
                 if (await canLaunchUrl(Uri.parse(resumeUrl))) {
                   await launchUrl(Uri.parse(resumeUrl));
                 } else {
@@ -87,8 +80,9 @@ class ExperienceSection extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.accentOrange,
                 side: BorderSide(color: AppColors.accentOrange, width: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                textStyle: GoogleFonts.poppins(fontSize: isDesktop ? 14 : 12, fontWeight: FontWeight.w600),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               icon: const Icon(Icons.download),
               label: const Text('Download Resume'),

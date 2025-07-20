@@ -1,10 +1,15 @@
 // lib/sections/hero_layouts/hero_desktop_layout.dart
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_web/Shared/widgets/Social_Icons.dart';
 import 'package:portfolio_web/Shared/widgets/custom_button.dart';
+import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/common_hero_widgets.dart';
 
-import 'package:portfolio_web/View/home/presentation/Common_widgets/common_hero_widgets.dart';
+
 import 'package:portfolio_web/core/constants/hero_data.dart';
+import 'package:portfolio_web/core/helpers/Responsive.dart';
+import 'package:portfolio_web/core/manager/Scroll_manager.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 
 
@@ -16,11 +21,13 @@ class HeroDesktopLayout extends StatelessWidget {
   final double titleFontSize;
   final double projectTextFontSize;
   final double paragraphFontSize;
+  final ScrollManager scrollManager;
 
   const HeroDesktopLayout({
     super.key,
     required this.screenWidth,
     required this.screenHeight,
+    required this.scrollManager,
     required this.hiThereFontSize,
     required this.nameFontSize,
     required this.titleFontSize,
@@ -30,6 +37,8 @@ class HeroDesktopLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isDesktop = Responsive.isDesktop(context);
 
 
     double leftColumnWidthRatio = 0.5;
@@ -130,6 +139,33 @@ class HeroDesktopLayout extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       border: BorderSide(color: AppColors.paragraphText, width: 2), // Lighter border
                     ),
+                    const SizedBox(height: 30),
+                    Wrap(
+                      spacing: isDesktop ? 30 : 20, // Horizontal space between icons
+                      alignment: WrapAlignment.center,
+                      children: [
+                        buildSocialIcon(
+                          FontAwesomeIcons.envelope, // Mail icon for email link
+                          'mailto:your.email@example.com', // ⭐ Replace with your actual email
+                          isDesktop,
+                        ),
+                        buildSocialIcon(
+                          FontAwesomeIcons.github, // GitHub icon
+                          'https://github.com/your_github_profile', // ⭐ Replace with your GitHub link
+                          isDesktop,
+                        ),
+                        buildSocialIcon(
+                          FontAwesomeIcons.linkedinIn, // LinkedIn icon
+                          'https://linkedin.com/in/your_linkedin_profile', // ⭐ Replace with your LinkedIn link
+                          isDesktop,
+                        ),
+                        buildSocialIcon(
+                          FontAwesomeIcons.instagram, // Twitter icon
+                          'https://twitter.com/your_twitter_profile', // ⭐ Replace with your Twitter link
+                          isDesktop,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -200,7 +236,10 @@ class HeroDesktopLayout extends StatelessWidget {
                         ],
                       ),
                     ),
-                    AnimatedCircularMenu(diameter: screenWidth * rightColumnWidthRatio * 0.8), // Using common widget
+                    AnimatedCircularMenu(
+                      diameter: 200,
+                      scrollManager: scrollManager, // ⭐ Pass the scrollManager
+                    ), // Using common widget
                   ],
                 ),
               ),

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart';
-import 'package:url_launcher/url_launcher.dart'; // For launching URLs (if certificates are online)
-import 'package:portfolio_web/core/theme/app_colors.dart'; // Assuming your color palette
-// Assuming your responsive utility
+import 'package:portfolio_web/core/theme/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExperienceTimelineTile extends StatefulWidget {
   final String duration;
   final String title;
   final String company;
   final String description;
-  final String? certificateImagePath; // Path to your certificate image asset
-  final String? certificateLink; // Optional: A link if certificate is hosted online
+  final String? certificateImagePath;
+  final String? certificateLink;
 
   const ExperienceTimelineTile({
     super.key,
@@ -32,56 +31,53 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDesktop = Responsive.isDesktop(context); // Use your Responsive utility
+    bool isDesktop = Responsive.isDesktop(context);
 
-    return IntrinsicHeight( // Makes children fill available height
+    return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch, // Stretch children vertically
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Left side: Duration and Timeline dot/line
-          Container(
-            width: isDesktop ? MediaQuery.of(context).size.width * 0.12 : MediaQuery.of(context).size.width * 0.25, // Adjust width
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.only(right: 22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  widget.duration,
-                  textAlign: TextAlign.right,
-                  style: GoogleFonts.poppins(
-                    fontSize: isDesktop ? 14 : 13,
-                    color: AppColors.accentOrange,
-                    fontWeight: FontWeight.w600,
-                  ),
+          // Left side: Duration, Vertical Timeline Line, and Dot
+          Column(
+            mainAxisSize: MainAxisSize.min, // Keep column compact vertically
+            crossAxisAlignment: CrossAxisAlignment.end, // Align duration to the right
+            children: [
+              // ⭐ Duration text positioned to the left of the line
+              Text(
+                widget.duration,
+                textAlign: TextAlign.right, // Ensures text aligns right if it wraps
+                style: GoogleFonts.poppins(
+                  fontSize: isDesktop ? 13 : 11, // Smaller font for dates
+                  color: AppColors.paragraphText, // Muted color
+                  fontWeight: FontWeight.w500,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            color: AppColors.accentOrange,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: 2,
-                            color: AppColors.textPrimary.withOpacity(0.5),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              ),
+              const SizedBox(height: 5), // Small space between date and dot
+
+              // Timeline Dot
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: AppColors.accentOrange,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.accentOrange.withOpacity(0.5), width: 1.5),
                 ),
-              ],
-            ),
+              ),
+              // Vertical Line (Expanded to fill remaining height)
+              Expanded(
+                child: Container(
+                  width: 2,
+                  color: AppColors.textPrimary.withOpacity(0.5),
+                  margin: const EdgeInsets.symmetric(vertical: 0),
+                ),
+              ),
+            ],
           ),
-          // Right side: Experience Card
+          // Horizontal space between timeline and card
+          const SizedBox(width: 20),
+
+          // Right side: Experience Card (Main Content)
           Expanded(
             child: MouseRegion(
               onEnter: (_) => setState(() => _isHovered = true),
@@ -89,89 +85,94 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                margin: const EdgeInsets.only(bottom: 25), // Space between cards
-                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.only(bottom: 25),
+                padding: EdgeInsets.symmetric(
+                  vertical: isDesktop ? 17 : 10, // ⭐ Reduced vertical padding
+                  horizontal: isDesktop ? 20 : 15,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.backgroundSecondary,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: _isHovered
                       ? [
                     BoxShadow(
-                      color: AppColors.accentOrange.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
+                      color: AppColors.accentOrange.withOpacity(0.4),
+                      spreadRadius: 3,
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
                     ),
                   ]
                       : [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
                     ),
                   ],
                   border: _isHovered
                       ? Border.all(color: AppColors.accentOrange, width: 2)
-                      : Border.all(color: AppColors.backgroundSecondary, width: 2), // Keep a border for smooth transition
+                      : Border.all(color: AppColors.backgroundSecondary, width: 2),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min, // Make card height compact
                   children: [
                     Text(
                       widget.title,
                       style: GoogleFonts.poppins(
-                        fontSize: isDesktop ? 20 : 18,
-                        color: AppColors.accentOrange,
+                        fontSize: isDesktop ? 17 : 15, // ⭐ Slightly smaller title font
+                        color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Text(
                       widget.company,
                       style: GoogleFonts.poppins(
-                        fontSize: isDesktop ? 16 : 14,
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w500,
+                        fontSize: isDesktop ? 13 : 11, // ⭐ Slightly smaller company font
+                        color: AppColors.accentOrange,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       widget.description,
                       style: GoogleFonts.openSans(
-                        fontSize: isDesktop ? 14 : 13,
+                        fontSize: isDesktop ? 12 : 10, // ⭐ Smaller description font
                         color: AppColors.paragraphText,
                       ),
-                      maxLines: 4, // Limit description lines
+                      maxLines: 2, // ⭐ Reduced to 2 lines for shorter card height
                       overflow: TextOverflow.ellipsis,
                     ),
                     if (widget.certificateImagePath != null || widget.certificateLink != null)
                       Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: OutlinedButton.icon(
-                          onPressed: () async {
-                            String? urlToLaunch = widget.certificateLink ?? widget.certificateImagePath;
-                            if (urlToLaunch != null && urlToLaunch.isNotEmpty) {
-                              // If it's a local asset, open it in a new tab (requires special handling for web)
-                              // For web, assets can be directly linked if configured, or opened in a new tab.
-                              // For demonstration, we'll assume it's a web-accessible path or a direct link.
-                              if (await canLaunchUrl(Uri.parse(urlToLaunch))) {
-                                await launchUrl(Uri.parse(urlToLaunch));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Could not open certificate: $urlToLaunch')),
-                                );
+                        padding: const EdgeInsets.only(top: 6.0), // Reduced top padding
+                        child: Align(
+                          alignment: Alignment.bottomRight, // ⭐ Align button to bottom right
+                          child: OutlinedButton.icon(
+                            onPressed: () async {
+                              String? urlToLaunch = widget.certificateLink ?? widget.certificateImagePath;
+                              if (urlToLaunch != null && urlToLaunch.isNotEmpty) {
+                                if (await canLaunchUrl(Uri.parse(urlToLaunch))) {
+                                  await launchUrl(Uri.parse(urlToLaunch));
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Could not open credential: $urlToLaunch')),
+                                  );
+                                }
                               }
-                            }
-                          },
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: AppColors.textPrimary,
-                            side: BorderSide(color: AppColors.accentOrange, width: 1.5),
-                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                            textStyle: GoogleFonts.poppins(fontSize: isDesktop ? 14 : 12),
+                            },
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.accentOrange,
+                              side: BorderSide(color: AppColors.accentOrange, width: 1.5),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7), // ⭐ Reduced button padding
+                              textStyle: GoogleFonts.poppins(fontSize: isDesktop ? 11 : 9), // ⭐ Smaller button text
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                            ),
+                            icon: const Icon(Icons.launch, size: 14), // ⭐ Smaller icon
+                            label: const Text('View Credential'),
                           ),
-                          icon: const Icon(Icons.picture_as_pdf), // Or Icons.link
-                          label: const Text('View Credential'),
                         ),
                       ),
                   ],

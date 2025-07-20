@@ -8,9 +8,11 @@ import 'package:portfolio_web/core/theme/app_colors.dart';
 
 
 class DesktopAboutContent extends StatelessWidget {
-  final ActiveSectionNotifier activeSectionNotifier; // This field is required
+  // final ActiveSectionNotifier activeSectionNotifier; // This field is required
 
-  const DesktopAboutContent({super.key, required this.activeSectionNotifier});
+  const DesktopAboutContent({super.key,
+    // required this.activeSectionNotifier
+  });
 // ...
 
 
@@ -55,7 +57,7 @@ class DesktopAboutContent extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
-                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupida non proident, sunt in culpa qui officia",
+                      "I am a passionate Flutter Developer, dedicated to crafting beautiful and high-performance mobile applications. My services include custom app development, Firebase integration, and comprehensive app testing",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.openSans(
                         fontSize: 12,
@@ -123,10 +125,10 @@ class DesktopAboutContent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 50),
-            SizedBox(
-              width: 80,
-              child: buildVerticalSideNavbar(context, activeSectionNotifier: activeSectionNotifier), // Pass the notifier,
-            ),
+            // SizedBox(
+            //   width: 80,
+            //   child: buildVerticalSideNavbar(context, activeSectionNotifier: activeSectionNotifier, scrollController: ), // Pass the notifier,
+            // ),
           ],
         ),
       ),

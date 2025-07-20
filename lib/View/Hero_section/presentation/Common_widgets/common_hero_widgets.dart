@@ -3,9 +3,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:portfolio_web/View/home/presentation/Common_widgets/dashed_circle_painter.dart';
+import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/dashed_circle_painter.dart';
+
 
 import 'package:portfolio_web/core/constants/hero_data.dart';
+import 'package:portfolio_web/core/manager/Scroll_manager.dart';
 
 
 import '../../../../core/theme/app_colors.dart';
@@ -78,10 +80,60 @@ Widget buildSaritaText(double fontSize) {
 
 
 
+// lib/View/Hero_section/presentation/Widgets/animated_circular_menu.dart
+// ⭐ Import the manager
+
+// Your CircularPathPainter class (make sure it's in a separate file or defined here)
+// For this example, assuming it's correctly defined and imported.
+class CircularPathPainter extends CustomPainter {
+  final double diameter;
+  final double animationValue;
+  final double pathRadius;
+
+  CircularPathPainter({
+    required this.diameter,
+    required this.animationValue,
+    required this.pathRadius,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = AppColors.accentOrange.withOpacity(0.5)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0;
+
+    final double centerX = size.width / 2;
+    final double centerY = size.height / 2;
+
+    Rect rect = Rect.fromCircle(center: Offset(centerX, centerY), radius: pathRadius);
+
+    double startAnglePath = -pi * 0.75;
+    double sweepAnglePath = pi * 1.5;
+
+    canvas.drawArc(rect, startAnglePath, sweepAnglePath * animationValue, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    CircularPathPainter oldPainter = oldDelegate as CircularPathPainter;
+    return oldPainter.animationValue != animationValue ||
+        oldPainter.diameter != diameter ||
+        oldPainter.pathRadius != pathRadius;
+  }
+}
+
+
 class AnimatedCircularMenu extends StatefulWidget {
   final double diameter;
+  // ⭐ New: Pass the ScrollManager instance
+  final ScrollManager scrollManager;
 
-  const AnimatedCircularMenu({super.key, required this.diameter});
+  const AnimatedCircularMenu({
+    super.key,
+    required this.diameter,
+    required this.scrollManager, // ⭐ Require the ScrollManager
+  });
 
   @override
   State<AnimatedCircularMenu> createState() => _AnimatedCircularMenuState();
@@ -92,28 +144,29 @@ class _AnimatedCircularMenuState extends State<AnimatedCircularMenu>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  // IMPORTANT: The order here must match the _sectionKeys order in ScrollManager
   final List<Map<String, dynamic>> icons = [
-    {'icon': Icons.home, 'label': 'Home'},
-    {'icon': Icons.person, 'label': 'About'},
-    {'icon': Icons.work, 'label': 'Services'}, // Briefcase-like
-    {'icon': Icons.folder, 'label': 'Projects'}, // Folder-like
-    {'icon': Icons.mail, 'label': 'Contact'}, // Mail-like
+    {'icon': Icons.home, 'label': 'Home'},         // index 0 -> homeSectionKey
+    {'icon': Icons.person, 'label': 'About'},       // index 1 -> aboutSectionKey
+    {'icon': Icons.work, 'label': 'Experience'},   // index 2 -> experienceSectionKey (was services)
+    {'icon': Icons.folder, 'label': 'Projects'},   // index 3 -> projectsSectionKey
+    {'icon': Icons.book, 'label': 'Hire Me'},      // index 4 -> hireMeSectionKey (add an icon for it)
+    {'icon': Icons.mail, 'label': 'Contact'},      // index 5 -> contactMeSectionKey
   ];
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 2), // Total animation duration
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
     _animation = CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOutCubic, // Smooth animation curve
+      curve: Curves.easeInOutCubic,
     );
 
-    // Start the animation when the widget loads
     _controller.forward();
   }
 
@@ -125,12 +178,8 @@ class _AnimatedCircularMenuState extends State<AnimatedCircularMenu>
 
   @override
   Widget build(BuildContext context) {
-    // --- Start of Fix: Define icon sizes here ---
-    // Calculate the total rendered size of an icon widget (including padding and border)
-    // Icon size (20) + padding (8 on each side) = 20 + 8*2 = 36.
     final double iconWidgetSize = 39.0;
-    final double halfIconWidgetSize = iconWidgetSize / 2; // = 18.0
-    // --- End of Fix ---
+    final double halfIconWidgetSize = iconWidgetSize / 2;
 
     return AnimatedBuilder(
       animation: _animation,
@@ -145,7 +194,6 @@ class _AnimatedCircularMenuState extends State<AnimatedCircularMenu>
                 painter: CircularPathPainter(
                   diameter: widget.diameter,
                   animationValue: _animation.value,
-                  // Now halfIconWidgetSize is accessible here
                   pathRadius: (widget.diameter / 2) - halfIconWidgetSize,
                 ),
               ),
@@ -153,49 +201,51 @@ class _AnimatedCircularMenuState extends State<AnimatedCircularMenu>
                 int index = entry.key;
                 Map<String, dynamic> data = entry.value;
 
-                // These variables are now defined globally in the build method,
-                // no need to redefine them here:
-                // final double iconWidgetSize = 36.0;
-                // final double halfIconWidgetSize = iconWidgetSize / 2;
-
                 double startAngle = -pi * 0.75;
                 double sweepAngle = pi * 1.5;
                 double angle = startAngle + (sweepAngle / (icons.length - 1)) * index;
 
-                // Adjust radiusForIcons:
-                // Subtract half the icon's total size from the main circle's radius.
-                // This places the icon's center inwards, so its edges don't get clipped.
                 double radiusForIcons = (widget.diameter / 2) - halfIconWidgetSize;
 
-                // Center of the main SizedBox, where the circle's origin is
                 double centerX = widget.diameter / 2;
                 double centerY = widget.diameter / 2;
 
-                // Calculate the center position of the current icon
                 double iconCenterX = centerX + radiusForIcons * cos(angle);
                 double iconCenterY = centerY + radiusForIcons * sin(angle);
 
-                // Calculate the threshold for this icon to appear
                 double iconVisibilityThreshold = index / (icons.length - 1);
-                if (icons.length <= 1) iconVisibilityThreshold = 0.0; // Handle single icon case
+                if (icons.length <= 1) iconVisibilityThreshold = 0.0;
 
                 return Positioned(
-                  // Position the top-left corner of the icon widget
-                  left: iconCenterX - halfIconWidgetSize, // Subtract half its size to center
-                  top: iconCenterY - halfIconWidgetSize,   // Subtract half its size to center
+                  left: iconCenterX - halfIconWidgetSize,
+                  top: iconCenterY - halfIconWidgetSize,
                   child: Opacity(
                     opacity: _animation.value >= iconVisibilityThreshold ? 1.0 : 0.0,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: AppColors.blackText,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.accentOrange, width: 1.5),
-                      ),
-                      child: Icon(
-                        data['icon'],
-                        color: Colors.white,
-                        size: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        // ⭐ Call the scrollToSection method from the passed ScrollManager
+                        widget.scrollManager.scrollToSection(index);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.backgroundSecondary,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.accentOrange, width: 1.5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          data['icon'],
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -208,6 +258,3 @@ class _AnimatedCircularMenuState extends State<AnimatedCircularMenu>
     );
   }
 }
-
-
-// Common widget for individual navigation icons
