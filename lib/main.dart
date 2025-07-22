@@ -17,10 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'My Portfolio',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        // You might want to define a darker theme for your portfolio
-        // brightness: Brightness.dark,
-        // scaffoldBackgroundColor: Colors.black,
-        // appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
+
       ),
       // ⭐ Custom Scroll Behavior for Web ⭐
       scrollBehavior: const MaterialScrollBehavior().copyWith(

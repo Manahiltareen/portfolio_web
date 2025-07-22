@@ -199,8 +199,6 @@ class _HomePageState extends State<HomePage> {
                 sectionOffsets: _sectionScrollOffsets,
               ),
             ),
-
-          // ✅ Custom cursor always on top
           const AnimatedCursor(),
         ],
       ),
