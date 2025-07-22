@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/View/Experience_Section/presentation/Common_widget/ExperienceTimelineTile.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart';
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 
@@ -23,14 +25,11 @@ class ExperienceSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'My Journey',
-            style: GoogleFonts.poppins(
-              fontSize: isDesktop ? 35 : 26,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
-            ),
+          HoverText(
+            text:  'My Journey',
+            fontSize:   isDesktop ? 35 : 26,
           ),
+
           Container(
             width: isDesktop ? 100 : 70,
             height: 3,
@@ -84,7 +83,7 @@ class ExperienceSection extends StatelessWidget {
                 textStyle: GoogleFonts.poppins(fontSize: isDesktop ? 14 : 12, fontWeight: FontWeight.w600),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              icon: const Icon(Icons.download),
+              icon: const Icon(FontAwesomeIcons.download, color: Colors.white70,),
               label: const Text('Download Resume'),
             ),
           ),

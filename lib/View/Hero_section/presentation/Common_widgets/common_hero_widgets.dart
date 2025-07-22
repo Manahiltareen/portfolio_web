@@ -2,26 +2,27 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/dashed_circle_painter.dart';
+import 'package:portfolio_web/core/helpers/Responsive.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 
 Widget buildSaritaText(double fontSize) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(
-        "I'M",
-        style: TextStyle(
-          fontSize: 70,
-
-          fontWeight: FontWeight.bold,
-
-          color: Colors.white,
-
-// color: AppColors.accentYellow,
-
-          decoration: TextDecoration.none,
-        ),
+      HoverText(
+        text:      "I'M",
+        fontSize: 70,
       ),
+//       Text(
+//         "I'M",
+//         style: TextStyle(
+//           fontSize: 70,
+//           fontWeight: FontWeight.bold,
+//           color: Colors.white,
+//           decoration: TextDecoration.none,
+//         ),
+//       ),
       const SizedBox(width: 10),
       Stack(
         children: [
@@ -38,7 +39,7 @@ Widget buildSaritaText(double fontSize) {
 
               foreground: Paint()
                 ..style = PaintingStyle.stroke
-                ..strokeWidth = 1.5
+                ..strokeWidth = 1.2
                 ..color = AppColors.accentOrange, // Orange outline
             ),
           ),

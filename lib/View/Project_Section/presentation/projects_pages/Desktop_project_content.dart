@@ -1,5 +1,6 @@
 // lib/sections/project_section.dart
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/Data/models/project_model.dart';
 
@@ -11,6 +12,7 @@ import 'package:portfolio_web/core/constants/project_section_data.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart';
 import 'package:portfolio_web/core/helpers/responsive_helper.dart'
 ;import 'package:portfolio_web/core/theme/app_colors.dart';
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -42,18 +44,11 @@ class ProjectSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'MY PROJECTS',
-            style: GoogleFonts.poppins(
-              color: AppColors.accentOrange,
-              fontSize:
-              // isDesktop ?
-              48 ,
-                  // : isTablet ? 36 : 28,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+          HoverText(
+            text:  'MY PROJECTS',
+            fontSize:  isTablet ? 36 : 40,
           ),
+
           SizedBox(height:GetMediaQuery.getHeigth(context) * 0.05),
           GridView.builder(
             shrinkWrap: true, // Important for GridView inside Column
@@ -281,7 +276,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     widget.project.description, // Use widget.project
                     style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: isMobile ? 14 : 16,
+                      fontSize: isMobile ? 14 : 14,
                     ),
                     maxLines: isMobile ? 3 : 4, // More lines on desktop for description
                     overflow: TextOverflow.ellipsis,
@@ -309,7 +304,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     children: [
                       // GitHub Icon Button
                       IconButton(
-                        icon: const Icon(Icons.code), // Represents code/GitHub
+                        icon: const Icon(FontAwesomeIcons.github,), // Represents code/GitHub
                         color: AppColors.textPrimary, // Icon color
                         onPressed: () async {
                           if (await canLaunchUrl(Uri.parse(widget.project.githubLink))) {
@@ -323,7 +318,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       ),
                       if (widget.project.liveDemoLink != null && widget.project.liveDemoLink!.isNotEmpty)
                         IconButton(
-                          icon: const Icon(Icons.open_in_new), // Represents external link/live demo
+                          icon: const Icon(FontAwesomeIcons.linkedin,), // Represents external link/live demo
                           color: AppColors.textPrimary,
                           onPressed: () async {
                             if (await canLaunchUrl(Uri.parse(widget.project.liveDemoLink!))) {
@@ -342,29 +337,29 @@ class _ProjectCardState extends State<ProjectCard> {
                     ],
                   ),
 
-                  Align(
-                    alignment: Alignment.bottomRight,
-
-                    child: OutlinedButton.icon(
-                      onPressed: () async {
-                        if (await canLaunchUrl(Uri.parse(widget.project.githubLink))) {
-                          await launchUrl(Uri.parse(widget.project.githubLink));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Could not launch ${widget.project.githubLink}')),
-                          );
-                        }
-                      },
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.accentOrange, // Changed to accentOrange
-                        side: BorderSide(color: AppColors.accentOrange, width: 2), // Changed to accentOrange
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        textStyle: GoogleFonts.poppins(fontSize: isMobile ? 14 : 16),
-                      ),
-                      icon: const Icon(Icons.code),
-                      label: const Text('View Code'),
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomRight,
+                  //
+                  //   child: OutlinedButton.icon(
+                  //     onPressed: () async {
+                  //       if (await canLaunchUrl(Uri.parse(widget.project.githubLink))) {
+                  //         await launchUrl(Uri.parse(widget.project.githubLink));
+                  //       } else {
+                  //         ScaffoldMessenger.of(context).showSnackBar(
+                  //           SnackBar(content: Text('Could not launch ${widget.project.githubLink}')),
+                  //         );
+                  //       }
+                  //     },
+                  //     style: OutlinedButton.styleFrom(
+                  //       foregroundColor: AppColors.accentOrange, // Changed to accentOrange
+                  //       side: BorderSide(color: AppColors.accentOrange, width: 2), // Changed to accentOrange
+                  //       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  //       textStyle: GoogleFonts.poppins(fontSize: isMobile ? 14 : 16),
+                  //     ),
+                  //     icon: const Icon(Icons.code),
+                  //     label: const Text('View Code'),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

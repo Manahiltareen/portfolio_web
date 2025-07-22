@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_web/Data/models/service_card_model.dart';
 
 
 final List<ServiceCard> serviceCards = [
   const ServiceCard(
-    icon: Icons.mobile_friendly,
+    icon: FontAwesomeIcons.flutter,
     title: "Flutter",
     projects: 10,
   ),
   const ServiceCard(
-    icon: Icons.local_fire_department_rounded,
+    icon: FontAwesomeIcons.fire,
     title: "Firebase",
     projects: 4,
   ),
   const ServiceCard(
-    icon: Icons.search,
+    icon: FontAwesomeIcons.cloud,
     title: "API integration",
     projects: 5,
   ),
   const ServiceCard(
-    icon: Icons.code,
+    icon:  FontAwesomeIcons.python,
     title: "Python",
     projects: 20
   ),
 
   const ServiceCard(
-    icon: Icons.cloud,
+    icon: FontAwesomeIcons.database,
     title: "SQflite",
     projects: 95,
   ),
   const ServiceCard(
-    icon: Icons.design_services, // Example new icon
+    icon: FontAwesomeIcons.creativeCommons, // Example new icon
     title: "UI/UX Design",
     projects: 180,
   ),

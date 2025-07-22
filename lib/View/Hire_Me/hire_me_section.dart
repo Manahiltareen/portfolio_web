@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart'; // Keep your original import if it works for you
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 
@@ -46,17 +47,12 @@ class HireMeSection extends StatelessWidget {
             ),
           ),
           SizedBox(height: isDesktop ? 8 : 4), // ⭐ Further reduced SizedBox height
-
-          // "Hire Me As A Freelancer" title
-          Text(
-            'Hire Me As A Freelancer',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: isDesktop ? 28 : 20, // ⭐ Further reduced font size
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
-            ),
+          HoverText(
+            text: 'Hire Me As A Freelancer',
+            fontSize: isDesktop ? 28 : 20,
           ),
+          // "Hire Me As A Freelancer" title
+
           SizedBox(height: isDesktop ? 15 : 8), // ⭐ Further reduced SizedBox height
 
           // Description text

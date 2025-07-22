@@ -10,6 +10,7 @@ import 'package:portfolio_web/View/Hero_section/presentation/Common_widgets/comm
 import 'package:portfolio_web/core/constants/hero_data.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 
 
 class HeroDesktopLayout extends StatelessWidget {
@@ -64,21 +65,26 @@ class HeroDesktopLayout extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
-                    Text(
-                      HeroData.hiThere,
-                      style: GoogleFonts.poppins( // Using GoogleFonts for consistency
-                        fontSize: hiThereFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.accentYellow, // Changed to accentYellow as per common design
-                        letterSpacing: 2,
-                        decoration: TextDecoration.none,
-                      ),
+                    HoverText(
+                      text:  HeroData.hiThere,
+                      fontSize: hiThereFontSize,
                     ),
+                    // Text(
+                    //   HeroData.hiThere,
+                    //   style: GoogleFonts.poppins( // Using GoogleFonts for consistency
+                    //     fontSize: hiThereFontSize,
+                    //     fontWeight: FontWeight.bold,
+                    //     color: AppColors.accentOrange,
+                    //     // color: Colors.amber[300], // Changed to accentYellow as per common design
+                    //     letterSpacing: 2,
+                    //     decoration: TextDecoration.none,
+                    //   ),
+                    // ),
                     Container(
                       width: 80,
                       height: 5,
-                      color: AppColors.accentYellow, // Changed to accentYellow
+                      color:
+                      AppColors.accentOrange, // Changed to accentYellow
                       margin: const EdgeInsets.only(bottom: 10),
                     ),
                     const SizedBox(height: 10),
@@ -86,7 +92,7 @@ class HeroDesktopLayout extends StatelessWidget {
                     Container(
                       width: 300,
                       height: 7,
-                      color: AppColors.accentYellow, // Changed to accentYellow
+                      color: AppColors.accentOrange, // Changed to accentYellow
                       margin: const EdgeInsets.only(bottom: 1),
                     ),
                     const SizedBox(height: 20),
@@ -106,7 +112,7 @@ class HeroDesktopLayout extends StatelessWidget {
                     const SizedBox(height: 15),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      color: AppColors.accentYellow, // Changed to accentYellow
+                      color: AppColors.accentOrange,// Changed to accentYellow
                       child: Text(
                         HeroData.projectCallToAction,
                         style: GoogleFonts.poppins( // Using GoogleFonts

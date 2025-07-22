@@ -11,7 +11,7 @@ List<Project> projects = [
   ),
   Project(
 
-    title: 'Food Delivery App (Frontend)',
+    title: 'Food Delivery App',
     description: 'A complete Flutter-based food delivery application developed with a focus on frontend UI/UX, providing a user-friendly and visually appealing interface for customers to browse and order food. Key features include attractive and responsive UI, home screen with featured restaurants, category-based Browse, item details, and shopping cart (frontend only).', // [cite: 13]
     imageUrl: 'assets/productdetailscreen.jpg',
     liveDemoLink: 'YOUR_DOC_VOUCH_LIVE_DEMO_LINK',// Replace with your actual image path

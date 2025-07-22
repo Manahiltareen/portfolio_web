@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/Shared/widgets/Social_Icons.dart';
 import 'package:portfolio_web/core/helpers/Responsive.dart'; // Ensure this path is correct
+import 'package:portfolio_web/core/theme/app_text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio_web/core/theme/app_colors.dart';
 // For social media icons
@@ -41,14 +42,11 @@ class ContactMeSection extends StatelessWidget {
                 size: isDesktop ? 30 : 24,
               ),
               SizedBox(width: isDesktop ? 10 : 8),
-              Text(
-                'Get in Touch',
-                style: GoogleFonts.poppins(
-                  fontSize: isDesktop ? 32 : 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
+              HoverText(
+                text: 'Get in Touch',
+                fontSize: isDesktop ? 32 : 24,
               ),
+
             ],
           ),
           SizedBox(height: isDesktop ? 30 : 25),
