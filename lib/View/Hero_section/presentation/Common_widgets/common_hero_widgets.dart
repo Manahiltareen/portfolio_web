@@ -14,19 +14,11 @@ Widget buildSaritaText(double fontSize) {
         text:"I'M",
         fontSize: 70,
       ),
-//       Text(
-//         "I'M",
-//         style: TextStyle(
-//           fontSize: 70,
-//           fontWeight: FontWeight.bold,
-//           color: Colors.white,
-//           decoration: TextDecoration.none,
-//         ),
-//       ),
+
       const SizedBox(width: 10),
       Stack(
         children: [
-// Outline Text
+
 
           Text(
             "MANAHIL",
