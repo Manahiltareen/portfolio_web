@@ -37,7 +37,7 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Left side: Duration, Vertical Timeline Line, and Dot
+
           Column(
             mainAxisSize: MainAxisSize.min, // Keep column compact vertically
             crossAxisAlignment: CrossAxisAlignment.end, // Align duration to the right
@@ -61,7 +61,10 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
                 decoration: BoxDecoration(
                   color: AppColors.accentOrange,
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.accentOrange.withOpacity(0.5), width: 1.5),
+                  border: Border.all(
+                    color: AppColors.accentOrange.withOpacity(0.5),
+                    width: 1.5,
+                  ),
                 ),
               ),
               // Vertical Line (Expanded to fill remaining height)
@@ -87,7 +90,7 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
                 curve: Curves.easeInOut,
                 margin: const EdgeInsets.only(bottom: 25),
                 padding: EdgeInsets.symmetric(
-                  vertical: isDesktop ? 17 : 10, // ⭐ Reduced vertical padding
+                  vertical: isDesktop ? 17 : 10,
                   horizontal: isDesktop ? 20 : 15,
                 ),
                 decoration: BoxDecoration(
@@ -121,7 +124,7 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
                     Text(
                       widget.title,
                       style: GoogleFonts.poppins(
-                        fontSize: isDesktop ? 17 : 15, // ⭐ Slightly smaller title font
+                        fontSize: isDesktop ? 17 : 15,
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -130,7 +133,7 @@ class _ExperienceTimelineTileState extends State<ExperienceTimelineTile> {
                     Text(
                       widget.company,
                       style: GoogleFonts.poppins(
-                        fontSize: isDesktop ? 13 : 11, // ⭐ Slightly smaller company font
+                        fontSize: isDesktop ? 13 : 11,
                         color: AppColors.accentOrange,
                         fontWeight: FontWeight.w600,
                       ),
